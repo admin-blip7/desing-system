@@ -1,0 +1,24 @@
+import { Suspense } from "react";
+import LogoWorkspace from "@/components/workspace/base/LogoWorkspace";
+
+export default function LogoPage({
+    searchParams,
+}: {
+    searchParams: { brandId?: string };
+}) {
+    const brandId = searchParams.brandId;
+
+    if (!brandId) {
+        return (
+            <div className="min-h-screen bg-black text-white flex items-center justify-center">
+                <p>Error: Brand ID missing</p>
+            </div>
+        );
+    }
+
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LogoWorkspace brandId={brandId} />
+        </Suspense>
+    );
+}

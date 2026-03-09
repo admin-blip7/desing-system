@@ -1,0 +1,408 @@
+/* ═══════════════════════════════════════════════
+     22 ELECTRONIC DESIGN SYSTEM - STYLES
+     ═══════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════
+     FONTS
+     ═══════════════════════════════════════════════ */
+@font-face { 
+    font-family: 'Editor\'s Note'; 
+    src: url('https://fonts.cdnfonts.net/s/54300/EDT-Hairline.woff') format('woff'); 
+    font-weight: 100; 
+    font-style: normal; 
+}
+@font-face { 
+    font-family: 'Editor\'s Note'; 
+    src: url('https://fonts.cdnfonts.net/s/54300/EDT-HairlineItalic.woff') format('woff'); 
+    font-weight: 100; 
+    font-style: italic; 
+}
+@font-face { 
+    font-family: 'Editor\'s Note'; 
+    src: url('https://fonts.cdnfonts.net/s/54300/EDT-Thin.woff') format('woff'); 
+    font-weight: 200; 
+    font-style: normal; 
+}
+@font-face { 
+    font-family: 'Editor\'s Note'; 
+    src: url('https://fonts.cdnfonts.net/s/54300/EDT-Regular.woff') format('woff'); 
+    font-weight: 500; 
+    font-style: normal; 
+}
+@font-face { 
+    font-family: 'Editor\'s Note'; 
+    src: url('https://fonts.cdnfonts.net/s/54300/EDT-Bold.woff') format('woff'); 
+    font-weight: 800; 
+    font-style: normal; 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════
+     CSS VARIABLES - LIGHT THEME
+     ═══════════════════════════════════════════════ */
+:root {
+    /* Base Colors */
+    --bg-body: #FFFFFF;
+    --bg-card: #FAFAFA;
+    --bg-sidebar: #FFFFFF;
+    --bg-secondary: #F8F8F8;
+    
+    /* Text Colors */
+    --text-primary: #050505;
+    --text-secondary: #525252;
+    --text-muted: #9CA3AF;
+    
+    /* Border Colors */
+    --border-color: #E5E5E5;
+    --border-light: #F0F0F0;
+    
+    /* Accents */
+    --accent: #FFD600;
+    --accent-dim: rgba(255, 214, 0, 0.15);
+    --accent-hover: #FFE033;
+    
+    --blue: #3B82F6;
+    --blue-dim: rgba(59, 130, 246, 0.1);
+    
+    --green: #22C55E;
+    --red: #EF4444;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --cyan: #06B6D4;
+    --orange: #F59E0B;
+}
+
+/* ═══════════════════════════════════════════════
+     CSS VARIABLES - DARK THEME
+     ═══════════════════════════════════════════════ */
+[data-theme="dark"] {
+    /* Base Colors */
+    --bg-body: #0A0A0A;
+    --bg-card: #141414;
+    --bg-sidebar: #0A0A0A;
+    --bg-secondary: #141414;
+    
+    /* Text Colors */
+    --text-primary: #FFFFFF;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+    
+    /* Border Colors */
+    --border-color: #27272A;
+    --border-light: #1F1F22;
+    
+    /* Accents */
+    --accent: #FFD600;
+    --accent-dim: rgba(255, 214, 0, 0.1);
+    --accent-hover: #FFE033;
+    
+    --blue: #3B82F6;
+    --blue-dim: rgba(59, 130, 246, 0.15);
+    
+    --green: #22C55E;
+    --red: #EF4444;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --cyan: #06B6D4;
+    --orange: #F59E0B;
+}
+
+/* ═══════════════════════════════════════════════
+     BASE STYLES
+     ═══════════════════════════════════════════════ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.brand-font { 
+    font-family: 'Editor\'s Note', serif; 
+}
+
+/* ═══════════════════════════════════════════════
+     UTILITY CLASSES
+     ═══════════════════════════════════════════════ */
+.bg-base {
+    background-color: var(--bg-body);
+}
+
+.bg-secondary {
+    background-color: var(--bg-secondary);
+}
+
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.border-border {
+    border-color: var(--border-color);
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.bg-accent {
+    background-color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+     BACKGROUND GRID
+     ═══════════════════════════════════════════════ */
+.grid-bg {
+    background-image: 
+        linear-gradient(var(--border-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: fixed; 
+    inset: 0; 
+    z-index: -1;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    transition: background-image 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════ */
+.sidebar {
+    background-color: var(--bg-sidebar);
+}
+
+/* ═══════════════════════════════════════════════
+      NAVIGATION
+      ═══════════════════════════════════════════════ */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link.active {
+    color: var(--text-primary);
+    font-weight: 600;
+    border-left-color: var(--accent);
+    background: linear-gradient(90deg, var(--accent-dim) 0%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════
+      PROGRESS BAR
+      ═══════════════════════════════════════════════ */
+#progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3px;
+    background: var(--accent);
+    z-index: 100;
+    transition: height 0.1s ease-out;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* ═══════════════════════════════════════════════
+     SELECTION
+     ═══════════════════════════════════════════════ */
+::selection { 
+    background: var(--accent); 
+    color: black; 
+}
+
+::-moz-selection { 
+    background: var(--accent); 
+    color: black; 
+}
+
+/* ═══════════════════════════════════════════════
+     CUSTOM SCROLLBAR
+     ═══════════════════════════════════════════════ */
+::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px;
+}
+
+::-webkit-scrollbar-track { 
+    background: var(--bg-body); 
+}
+
+::-webkit-scrollbar-thumb { 
+    background: var(--border-color); 
+    border-radius: 3px; 
+}
+
+::-webkit-scrollbar-thumb:hover { 
+    background: var(--text-muted); 
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-body);
+}
+
+/* ═══════════════════════════════════════════════
+     ANIMATION UTILITIES
+     ═══════════════════════════════════════════════ */
+.hover-lift { 
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
+
+.hover-lift:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15);
+}
+
+.reveal-text {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ═══════════════════════════════════════════════
+     THEME TOGGLE
+     ═══════════════════════════════════════════════ */
+#themeToggle {
+    transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+    transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════
+     TOAST NOTIFICATION
+     ═══════════════════════════════════════════════ */
+#toast {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ═══════════════════════════════════════════════
+     RESPONSIVE DESIGN
+     ═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .sidebar {
+        position: relative;
+        height: auto;
+    }
+    
+    .brand-font.text-7xl {
+        font-size: 3.5rem;
+    }
+    
+    .brand-font.text-9xl {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .brand-font.text-7xl {
+        font-size: 2.5rem;
+    }
+    
+    .brand-font.text-9xl {
+        font-size: 3.5rem;
+    }
+    
+    section {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+     ACCESSIBILITY
+     ═══════════════════════════════════════════════ */
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent);
+    color: black;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════
+     LOADING STATES
+     ═══════════════════════════════════════════════ */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading {
+    background: linear-gradient(
+        90deg,
+        var(--bg-secondary) 0%,
+        var(--border-color) 50%,
+        var(--bg-secondary) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* ═══════════════════════════════════════════════
+     PRINT STYLES
+     ═══════════════════════════════════════════════ */
+@media print {
+    .sidebar,
+    .grid-bg,
+    #toast,
+    button {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    section {
+        page-break-inside: avoid;
+    }
+}

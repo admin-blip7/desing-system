@@ -1,0 +1,104 @@
+# ============================================================================
+# Security-first .gitignore for Next.js/Node monorepo
+# ============================================================================
+
+# --- Package managers / dependencies ---
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# --- Build artifacts ---
+.next/
+out/
+build/
+dist/
+.turbo/
+.parcel-cache/
+
+# --- TypeScript / caches ---
+*.tsbuildinfo
+next-env.d.ts
+.cache/
+.eslintcache
+
+# --- Test / coverage / reports ---
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+*.lcov
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# --- Environment and secrets (critical) ---
+.env
+.env.*
+!.env.example
+!.env*.example
+!.env.template
+!.env*.template
+
+# Common secret/credential artifacts
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.csr
+*.der
+*.jks
+*.kdb
+*.asc
+*.kubeconfig
+
+# --- Local temp / scratch ---
+.tmp/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# --- Runtime data / local DBs ---
+*.pid
+*.seed
+*.pid.lock
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# --- Framework / platform ---
+.vercel/
+
+# --- IDE / editor ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Agent / personal local tooling (never publish) ---
+.claude/
+.kilocode/
+.mcp.json
+AGENTS.md
+Claude.md
+project_context.md
+project_context.md.backup-*
+tasks/

@@ -1,0 +1,153 @@
+{
+  "defaultProfileId": "default",
+  "profiles": {
+    "default": {
+      "id": "default",
+      "promptProfile": "default-balanced",
+      "voice": {
+        "tone": "Profesional, claro y confiable",
+        "do": [
+          "Escribir en frases accionables y concretas",
+          "Usar lenguaje simple y verificable",
+          "Mantener consistencia entre canal y etapa de funnel"
+        ],
+        "dont": [
+          "Prometer resultados sin soporte",
+          "Cambiar de tono entre piezas sin motivo",
+          "Usar tecnicismos sin contexto"
+        ],
+        "lexicalPreferences": [
+          "claridad",
+          "consistencia",
+          "enfoque",
+          "medible"
+        ]
+      },
+      "style": {
+        "archetype": "Builder",
+        "visualKeywords": [
+          "coherente",
+          "moderno",
+          "funcional",
+          "escalable"
+        ],
+        "colorMood": "balanceado con contraste",
+        "typographyMood": "legible y contemporánea"
+      },
+      "metadata": {
+        "source": "default-config"
+      }
+    },
+    "apple": {
+      "id": "apple",
+      "promptProfile": "minimal-premium",
+      "voice": {
+        "tone": "Directo, simple y elegante",
+        "do": [
+          "Usar frases cortas y orientadas a beneficios",
+          "Priorizar claridad y foco en producto",
+          "Mantener una narrativa aspiracional sin exageración"
+        ],
+        "dont": [
+          "Sobrecargar el mensaje con tecnicismos",
+          "Usar lenguaje coloquial ambiguo",
+          "Perder coherencia entre interfaz y copy"
+        ],
+        "lexicalPreferences": [
+          "simple",
+          "fluido",
+          "integrado",
+          "preciso"
+        ]
+      },
+      "style": {
+        "archetype": "El Estándar de Oro",
+        "visualKeywords": [
+          "minimal",
+          "limpio",
+          "espacioso",
+          "premium"
+        ],
+        "colorMood": "neutro con acentos funcionales",
+        "typographyMood": "sans-serif humanista y muy legible"
+      },
+      "metadata": {
+        "source": "personality-profile"
+      }
+    },
+    "linear": {
+      "id": "linear",
+      "promptProfile": "productivity-tech",
+      "voice": {
+        "tone": "Conciso, técnico y orientado a ejecución",
+        "do": [
+          "Comunicar resultados con verbos de acción",
+          "Reducir ruido en cada mensaje",
+          "Mantener consistencia terminológica de producto"
+        ],
+        "dont": [
+          "Usar claims genéricos de marketing",
+          "Introducir storytelling fuera de contexto",
+          "Romper la jerarquía informativa"
+        ],
+        "lexicalPreferences": [
+          "rápido",
+          "preciso",
+          "workflow",
+          "sistema"
+        ]
+      },
+      "style": {
+        "archetype": "El Nuevo Estándar SaaS",
+        "visualKeywords": [
+          "sobrio",
+          "productivo",
+          "modular",
+          "high-contrast"
+        ],
+        "colorMood": "dark-neutral con acento controlado",
+        "typographyMood": "interfaz técnica y limpia"
+      },
+      "metadata": {
+        "source": "personality-profile"
+      }
+    },
+    "nothing": {
+      "id": "nothing",
+      "promptProfile": "rebel-tech",
+      "voice": {
+        "tone": "Provocador, directo y con sustancia",
+        "do": [
+          "Usar mensajes cortos con intención",
+          "Mantener una voz anti-corporativa controlada",
+          "Alinear copy con propuesta visual audaz"
+        ],
+        "dont": [
+          "Perder claridad por intentar ser disruptivo",
+          "Sobreprometer innovación sin prueba",
+          "Mezclar estilos visuales incompatibles"
+        ],
+        "lexicalPreferences": [
+          "transparencia",
+          "sistema",
+          "signal",
+          "directo"
+        ]
+      },
+      "style": {
+        "archetype": "Transparencia Retro-Futurista",
+        "visualKeywords": [
+          "mono",
+          "high-contrast",
+          "tecnológico",
+          "experimental"
+        ],
+        "colorMood": "monocromático con acentos de señal",
+        "typographyMood": "industrial y contundente"
+      },
+      "metadata": {
+        "source": "personality-profile"
+      }
+    }
+  }
+}
