@@ -1,0 +1,639 @@
+"use client";
+
+import React, { useState } from "react";
+import { BaseWorkspace } from "@/components/workspace/shared/BaseWorkspace";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Shapes, Circle, Square, Triangle, Maximize2, Plus, Trash2, Download, Wand2, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLogoUpload } from "@/lib/hooks/useLogoUpload";
+import { WorkspaceAIGenerator } from "@/components/workspace/shared/WorkspaceAIGenerator";
+import { toast } from "sonner";
+
+type GenerationMode = "questions" | "auto";
+
+interface GeometryItem {
+    id: string;
+    url: string;
+    name: string;
+    type: "circle" | "square" | "triangle" | "rectangle" | "polygon";
+    color: string;
+}
+
+const GeometryGallery = ({
+    items,
+    onAdd,
+    onDelete,
+    brandId,
+    generatedImage
+}: {
+    items: GeometryItem[],
+    onAdd: (item: GeometryItem) => void,
+    onDelete: (id: string) => void,
+    brandId: string
+    generatedImage?: string | null
+}) => {
+    const { uploadLogo } = useLogoUpload(brandId);
+
+    const handleUpload = async (file: File, type: GeometryItem['type']) => {
+        const url = await uploadLogo(file, `geometry/${type}/${Date.now()}`);
+        if (url) {
+            onAdd({
+                id: Date.now().toString(),
+                url,
+                name: file.name.replace(/\.[^/.]+$/, ""),
+                type,
+                color: "#000000"
+            });
+        }
+    };
+
+    return (
+        <div className="p-6 space-y-8">
+            <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-medium text-white">Galería de Formas Geométricas</h3>
+                <div className="flex gap-3">
+                    <Button
+                        onClick={() => document.getElementById('geometry-upload')?.click()}
+                        variant="outline"
+                        className="bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white"
+                    >
+                        <Plus size={14} className="mr-2" />
+                        Agregar Forma
+                    </Button>
+                    <input
+                        id="geometry-upload"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleUpload(file, 'polygon');
+                        }}
+                    />
+                </div>
+            </div>
+
+            {/* Generated image from AI */}
+            {generatedImage && (
+                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                        <Sparkles size={16} className="text-amber-500" />
+                        <h4 className="text-amber-500 font-medium">Forma Generada por IA</h4>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 flex items-center justify-center">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={generatedImage} alt="Geometría generada por IA" className="max-w-full max-h-64 object-contain" />
+                    </div>
+                </div>
+            )}
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {items.map((item) => (
+                    <div key={item.id} className="group relative bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                        <div
+                            className="aspect-square bg-zinc-950/50 rounded flex items-center justify-center"
+                            style={{ backgroundColor: `${item.color}20` }}
+                        >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={item.url} alt={item.name} className="max-w-full max-h-full object-contain" />
+                        </div>
+
+                        <div className="space-y-2 mt-3">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs px-2 py-1 rounded bg-zinc-800 text-zinc-400 capitalize">
+                                    {item.type}
+                                </span>
+                                <p className="text-sm font-medium text-zinc-300 truncate" title={item.name}>
+                                    {item.name}
+                                </p>
+                            </div>
+                            {item.color && (
+                                <div className="flex items-center gap-2">
+                                    <div
+                                        className="w-4 h-4 rounded border border-zinc-700"
+                                        style={{ backgroundColor: item.color }}
+                                    />
+                                    <span className="text-xs text-zinc-500">{item.color}</span>
+                                </div>
+                            )}
+                        </div>
+
+                        <button
+                            onClick={() => onDelete(item.id)}
+                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            <Trash2 size={12} className="text-red-400 hover:text-red-300" />
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {items.length === 0 && (
+                <div className="text-center py-12 text-zinc-500 border border-dashed border-zinc-800 rounded-lg">
+                    <Square size={32} className="mx-auto mb-3 text-zinc-600" />
+                    <p>No hay formas geométricas subidas todavía.</p>
+                    <p className="text-sm mt-2">Agrega formas básicas de tu marca para comenzar.</p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const GeometryPatterns = ({ generatedText }: { generatedText?: string | null }) => {
+    // Parse generated text for patterns if available
+    const parseGeneratedPatterns = () => {
+        if (!generatedText) return null;
+
+        try {
+            // Try to parse as JSON first
+            const parsed = JSON.parse(generatedText);
+            if (parsed.patterns && Array.isArray(parsed.patterns)) {
+                return parsed.patterns;
+            }
+            if (parsed.base_shapes && Array.isArray(parsed.base_shapes)) {
+                return parsed.base_shapes;
+            }
+        } catch {
+            // Not JSON, try to extract patterns from text
+            const patternsSection = generatedText.match(/patrones|patterns/i);
+            if (patternsSection) return null;
+        }
+
+        return null;
+    };
+
+    const patterns = parseGeneratedPatterns();
+
+    return (
+    <div className="p-6 space-y-8">
+        <div>
+            <h3 className="text-lg font-medium text-white mb-4">Patrones y Texturas</h3>
+            <p className="text-sm text-zinc-400 mb-6">
+                Define los patrones visuales, texturas y elementos decorativos que complementan las formas geométricas de tu marca.
+            </p>
+        </div>
+
+        {/* Generated content from AI */}
+        {generatedText && (
+            <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                    <Sparkles size={16} className="text-amber-500" />
+                    <h4 className="text-amber-500 font-medium">Contenido Generado por IA</h4>
+                </div>
+                <div className="bg-zinc-900 rounded-lg p-4 text-sm text-zinc-300 whitespace-pre-wrap max-h-96 overflow-y-auto">
+                    {generatedText}
+                </div>
+            </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 space-y-4">
+                <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <Circle size={16} />
+                    Patrones de Repetición
+                </h4>
+                <div className="space-y-3 text-sm text-zinc-400">
+                    <p>• <span className="text-zinc-300">Diagonal Lines:</span> Líneas diagonales, rayas, puntos enrejados</p>
+                    <p>• <span className="text-zinc-300">Grid:</span> Rejillas y mallas como estructura base</p>
+                    <p>• <span className="text-zinc-300">Radial:</span> Patrones circulares concéntricos</p>
+                    <p>• <span className="text-zinc-300">Orgánicos:</span> Formas fluidas inspiradas en naturaleza</p>
+                </div>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 space-y-4">
+                <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <Square size={16} />
+                    Texturas y Fondos
+                </h4>
+                <div className="space-y-3 text-sm text-zinc-400">
+                    <p>• <span className="text-zinc-300">Sólidos:</span> Colores planos sin degradado</p>
+                    <p>• <span className="text-zinc-300">Degradados:</span> Transiciones suaves de color</p>
+                    <p>• <span className="text-zinc-300">Texturizados:</span> Efectos de ruido, grano, papel</p>
+                    <p>• <span className="text-zinc-300">Transparentes:</span> Uso de opacidad y transparencia</p>
+                </div>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 space-y-4">
+                <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                    <Triangle size={16} />
+                    Motivos Visuales
+                </h4>
+                <div className="space-y-3 text-sm text-zinc-400">
+                    <p>• <span className="text-zinc-300">Abstractos:</span> Formas no representacionales</p>
+                    <p>• <span className="text-zinc-300">Geométricos:</span> Combinaciones de formas básicas</p>
+                    <p>• <span className="text-zinc-300">Tipográficos:</span> Patrones con letras y números</p>
+                    <p>• <span className="text-zinc-300">Naturales:</span> Elementos orgánicos estilizados</p>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const GeometryGuidelines = () => (
+    <div className="p-6 space-y-8">
+        <div>
+            <h3 className="text-lg font-medium text-white mb-4">Guías de Uso</h3>
+            <p className="text-sm text-zinc-400 mb-6">
+                Reglas para aplicar formas geométricas de manera consistente en todos los materiales de marca.
+            </p>
+        </div>
+
+        <div className="space-y-6">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+                <h4 className="text-white font-medium mb-4">Uso Correcto</h4>
+                <ul className="space-y-3 text-sm text-zinc-400">
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <span>Mantener la proporción y relación entre elementos</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <span>Respetar el espacio negativo (clear space) alrededor del logo</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <span>Usar las formas approvaladas en el sistema de marca</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <span>No estirar o distorsionar las formas geométricas</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <span>Aplicar colores approvalados en contexto</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+                <h4 className="text-white font-medium mb-4 text-red-400">Uso Incorrecto</h4>
+                <ul className="space-y-3 text-sm text-zinc-400">
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                        <span>Modificar las formas básicas del logo</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                        <span>Añadir formas no approvaladas al sistema</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                        <span>Usar colores o estilos que compitan con la paleta principal</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                        <span>Sobrepasar el clear space definido para el logo</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                        <span>Aplicar filtros o efectos que distorsionen las formas</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+);
+
+const GeometryExport = () => (
+    <div className="p-6 space-y-6">
+        <div>
+            <h3 className="text-lg font-medium text-white mb-4">Exportar Assets</h3>
+            <p className="text-sm text-zinc-400 mb-6">
+                Descarga todos los assets geométricos en diferentes formatos para usar en tus diseños.
+            </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button variant="outline" className="bg-zinc-900 border-zinc-800 text-zinc-300 h-full flex flex-col items-center justify-center gap-3 p-6 hover:text-white">
+                <Download size={20} />
+                <span className="font-medium">SVG</span>
+                <span className="text-xs text-zinc-500">Vector escalable</span>
+            </Button>
+
+            <Button variant="outline" className="bg-zinc-900 border-zinc-800 text-zinc-300 h-full flex flex-col items-center justify-center gap-3 p-6 hover:text-white">
+                <Download size={20} />
+                <span className="font-medium">PNG</span>
+                <span className="text-xs text-zinc-500">Raster con transparencia</span>
+            </Button>
+
+            <Button variant="outline" className="bg-zinc-900 border-zinc-800 text-zinc-300 h-full flex flex-col items-center justify-center gap-3 p-6 hover:text-white">
+                <Download size={20} />
+                <span className="font-medium">PDF</span>
+                <span className="text-xs text-zinc-500">Guía de uso completa</span>
+            </Button>
+        </div>
+    </div>
+);
+
+interface GeometryGeneratedContent {
+    imageUrl?: string;
+    text?: string;
+    imagePrompt?: string;
+    negativePrompt?: string;
+}
+
+interface WorkspaceContentProps {
+    data: {
+        content?: {
+            items?: GeometryItem[];
+        } | GeometryGeneratedContent;
+    } | null;
+    saveModule: (data: {
+        content?: {
+            items?: GeometryItem[];
+        } | GeometryGeneratedContent;
+    }) => void;
+    brandId: string;
+}
+
+const WorkspaceContent = ({ data, saveModule, brandId }: WorkspaceContentProps) => {
+    const [items, setItems] = useState<GeometryItem[]>([]);
+    const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+    const [generatedText, setGeneratedText] = useState<string | null>(null);
+
+    // Update state when data changes
+    React.useEffect(() => {
+        // Handle legacy format (items array)
+        if (data?.content && typeof data.content === 'object' && 'items' in data.content) {
+            setItems((data.content as { items?: GeometryItem[] }).items || []);
+            setGeneratedImage(null);
+            setGeneratedText(null);
+        }
+        // Handle new visual format (imageUrl + text)
+        else if (data?.content && typeof data.content === 'object' && 'imageUrl' in data.content) {
+            const visualContent = data.content as GeometryGeneratedContent;
+            if (visualContent.imageUrl) {
+                setGeneratedImage(visualContent.imageUrl);
+            }
+            if (visualContent.text) {
+                setGeneratedText(visualContent.text);
+            }
+        }
+    }, [data?.content]);
+
+    // Save module when items change
+    React.useEffect(() => {
+        if (items.length > 0 && data) {
+            saveModule({ ...data, content: { ...data?.content, items } });
+        }
+    }, [items, data, saveModule]);
+
+    const handleAdd = (item: GeometryItem) => {
+        const updated = [...items, item];
+        setItems(updated);
+    };
+
+    const handleDelete = (id: string) => {
+        const updated = items.filter(i => i.id !== id);
+        setItems(updated);
+    };
+
+    return (
+        <Tabs defaultValue="gallery" className="h-full flex flex-col">
+            <div className="border-b border-zinc-800 px-6 bg-[#050505]">
+                <TabsList className="bg-transparent h-12 p-0 gap-6">
+                    <TabsTrigger value="gallery" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-amber-500 rounded-none h-full px-0 text-zinc-400 data-[state=active]:text-white">
+                        <Shapes size={14} className="mr-2" /> Galería
+                    </TabsTrigger>
+                    <TabsTrigger value="patterns" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-amber-500 rounded-none h-full px-0 text-zinc-400 data-[state=active]:text-white">
+                        <Maximize2 size={14} className="mr-2" /> Patrones
+                    </TabsTrigger>
+                    <TabsTrigger value="guidelines" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-amber-500 rounded-none h-full px-0 text-zinc-400 data-[state=active]:text-white">
+                        <Circle size={14} className="mr-2" /> Guías
+                    </TabsTrigger>
+                    <TabsTrigger value="export" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-amber-500 rounded-none h-full px-0 text-zinc-400 data-[state=active]:text-white">
+                        <Download size={14} className="mr-2" /> Exportar
+                    </TabsTrigger>
+                </TabsList>
+            </div>
+
+            <div className="flex-1 flex overflow-hidden">
+                <div className="flex-1 bg-[#0A0A0A]">
+                    <ScrollArea className="h-full">
+                        <TabsContent value="gallery" className="m-0 focus:outline-none min-h-full">
+                            <GeometryGallery
+                                items={items}
+                                onAdd={handleAdd}
+                                onDelete={handleDelete}
+                                brandId={brandId}
+                                generatedImage={generatedImage}
+                            />
+                        </TabsContent>
+
+                        <TabsContent value="patterns" className="m-0 focus:outline-none min-h-full">
+                            <GeometryPatterns generatedText={generatedText} />
+                        </TabsContent>
+
+                        <TabsContent value="guidelines" className="m-0 focus:outline-none min-h-full">
+                            <GeometryGuidelines />
+                        </TabsContent>
+
+                        <TabsContent value="export" className="m-0 focus:outline-none min-h-full">
+                            <GeometryExport />
+                        </TabsContent>
+                    </ScrollArea>
+                </div>
+            </div>
+        </Tabs>
+    );
+};
+
+export default function GeometryWorkspace({ brandId }: { brandId: string }) {
+    const [generationMode, setGenerationMode] = useState<GenerationMode>("questions");
+    const [showAIPanel, setShowAIPanel] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [waitingProgress, setWaitingProgress] = useState(0);
+
+    const handleGenerateAuto = async () => {
+        setIsGenerating(true);
+        setWaitingProgress(8);
+
+        const interval = setInterval(() => {
+            setWaitingProgress((prev) => {
+                if (prev >= 92) return prev;
+                return prev + 4;
+            });
+        }, 400);
+
+        try {
+            const response = await fetch("/api/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    brandId,
+                    moduleKey: "geometry",
+                    mode: "auto",
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al generar contenido");
+            }
+
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+            let resultContent: unknown = null;
+
+            if (reader) {
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split("\n");
+                    
+                    for (const line of lines) {
+                        if (line.startsWith("data: ")) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                if (data.type === "result" && data.success && data.data?.content) {
+                                    resultContent = data.data.content;
+                                } else if (data.type === "error") {
+                                    throw new Error(data.error || "Error en generación");
+                                }
+                            } catch {
+                                // Ignore parse errors for non-JSON lines
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!resultContent) {
+                const data = await response.json();
+                resultContent = data.content || data;
+            }
+
+            await fetch("/api/modules/save", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    brandId,
+                    moduleKey: "geometry",
+                    content: resultContent,
+                    status: "completed",
+                }),
+            });
+
+            if (typeof window !== "undefined") {
+                window.dispatchEvent(
+                    new CustomEvent("module-updated", {
+                        detail: { brandId, moduleKey: "geometry" },
+                    })
+                );
+            }
+
+            toast.success("Formas geométricas generadas automáticamente");
+        } catch (error) {
+            console.error("Error generating geometry:", error);
+            toast.error("Error al generar contenido con IA");
+        } finally {
+            clearInterval(interval);
+            setIsGenerating(false);
+            setWaitingProgress(0);
+        }
+    };
+
+    const headerActions = (
+        <div className="flex items-center gap-2">
+            <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setGenerationMode(generationMode === "questions" ? "auto" : "questions")}
+                className="h-9 bg-zinc-900 border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors"
+            >
+                <Wand2 size={14} className="mr-2" />
+                {generationMode === "questions" ? "Modo: Con Preguntas" : "Modo: Automático"}
+            </Button>
+            {generationMode === "questions" ? (
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAIPanel(!showAIPanel)}
+                    className="h-9 bg-zinc-900 border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors"
+                >
+                    <Sparkles size={14} className="mr-2" />
+                    Generar con IA
+                </Button>
+            ) : (
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleGenerateAuto}
+                    disabled={isGenerating}
+                    className="h-9 bg-zinc-900 border-zinc-800 hover:bg-zinc-800 text-zinc-300 hover:text-white transition-colors"
+                >
+                    <Sparkles size={14} className="mr-2" />
+                    {isGenerating ? "Generando..." : "Generar Automático"}
+                </Button>
+            )}
+        </div>
+    );
+
+    return (
+        <BaseWorkspace
+            brandId={brandId}
+            moduleKey="geometry"
+            moduleName="Entidades Geométricas"
+            moduleSubtitle="Formas, patrones y texturas de marca"
+            backLink={`/dashboard/brands/${brandId}`}
+            headerActions={headerActions}
+        >
+            {({ data, saveModule }) => (
+                <>
+                    {generationMode === "questions" && showAIPanel && (
+                        <div className="border-b border-zinc-800 bg-[#050505] p-4">
+                            <WorkspaceAIGenerator
+                                moduleKey="geometry"
+                                brandId={brandId}
+                                externalExpanded={showAIPanel}
+                                onGenerated={async (generatedData) => {
+                                    const normalizedContent = generatedData && typeof generatedData === "object" && "content" in generatedData 
+                                        ? (generatedData as { content: unknown }).content 
+                                        : generatedData;
+                                    
+                                    await fetch("/api/modules/save", {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            brandId,
+                                            moduleKey: "geometry",
+                                            content: normalizedContent,
+                                            status: "completed",
+                                        }),
+                                    });
+
+                                    if (typeof window !== "undefined") {
+                                        window.dispatchEvent(
+                                            new CustomEvent("module-updated", {
+                                                detail: { brandId, moduleKey: "geometry" },
+                                            })
+                                        );
+                                    }
+
+                                    toast.success("Formas geométricas generadas");
+                                    setShowAIPanel(false);
+                                }}
+                            />
+                        </div>
+                    )}
+                    {generationMode === "auto" && isGenerating && (
+                        <div className="border-b border-zinc-800 bg-[#050505] p-4">
+                            <div className="space-y-2">
+                                <div className="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                                    <div
+                                        className="h-full bg-amber-500 transition-all duration-300"
+                                        style={{ width: `${waitingProgress}%` }}
+                                    />
+                                </div>
+                                <p className="text-xs text-zinc-400">Generando formas geométricas automáticamente...</p>
+                            </div>
+                        </div>
+                    )}
+                    <WorkspaceContent data={data} saveModule={saveModule} brandId={brandId} />
+                </>
+            )}
+        </BaseWorkspace>
+    );
+}

@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="22 Electronic — Ultimate Design System v2.0">
+    <title>22 Electronic — Ultimate Design System</title>
+    
+    <!-- Tailwind CSS v3.4 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="flex flex-col lg:flex-row min-h-screen transition-colors duration-300">
+
+    <!-- Background Matrix -->
+    <div class="grid-bg"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SIDEBAR (Control Center)
+         ═══════════════════════════════════════════════ -->
+    <aside class="sidebar w-full lg:w-72 h-auto lg:h-screen lg:sticky top-0 border-r flex flex-col z-50 transition-colors duration-300">
+        <div class="p-8 border-b relative">
+            <div class="absolute left-0 top-8 bottom-0 w-[3px] bg-secondary">
+                <div id="progressBar" class="w-full bg-accent transition-all duration-300" style="height: 0%"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none">
+                    <rect x="2" y="8" width="16" height="4" rx="1" fill="currentColor" class="text-primary"/>
+                    <rect x="2" y="18" width="24" height="4" rx="1" fill="currentColor" class="text-primary"/>
+                    <rect x="2" y="28" width="20" height="4" rx="1" fill="var(--accent)"/>
+                    <circle cx="34" cy="20" r="4" fill="var(--accent)"/>
+                </svg>
+                <div>
+                    <h1 class="brand-font text-2xl font-light tracking-wide">22<span class="text-accent">.</span> Electronic</h1>
+                    <p class="text-[10px] text-muted uppercase tracking-[0.3em] mt-1">Design System v2.4</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="px-8 py-4 border-b">
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Search..." class="w-full bg-transparent border border-border rounded-lg p-3 text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors placeholder-muted font-mono text-sm">
+                <i class="ph ph-magnifying-glass absolute right-3 top-3.5 text-muted"></i>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-6">
+            <ul class="space-y-1">
+                <li><a href="#hero" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">00. Intro</a></li>
+                <li><a href="#dna" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">01. Brand DNA</a></li>
+                <li><a href="#colors" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">02. Colors</a></li>
+                <li><a href="#typography" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">03. Typography</a></li>
+                <li><a href="#components" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">04. Components</a></li>
+                <li><a href="#products" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">05. Products</a></li>
+                <li><a href="#icons" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">06. Icons</a></li>
+                <li><a href="#spacing" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">07. Spacing</a></li>
+                <li><a href="#grid" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">08. Grid</a></li>
+                <li><a href="#elevation" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">09. Elevation</a></li>
+                <li><a href="#loading" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">10. Loading</a></li>
+                <li><a href="#advanced" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">11. Advanced</a></li>
+                <li><a href="#theme-customizer" class="nav-link block py-3 px-8 text-xs uppercase tracking-widest text-muted hover:text-primary transition-all border-l-2 border-transparent">12. Theme</a></li>
+            </ul>
+        </nav>
+
+        <div class="p-8 border-t">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <span class="text-xs text-muted font-mono">SYSTEM ONLINE</span>
+                </div>
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-accent transition-colors" aria-label="Toggle theme">
+                    <i class="ph ph-sun text-xl" id="themeIcon"></i>
+                </button>
+            </div>
+            <button class="w-full py-3 border border-border text-primary text-[10px] uppercase tracking-widest hover:bg-accent hover:border-accent hover:text-black transition-all duration-300 font-medium">
+                Download Assets
+            </button>
+        </div>
+    </aside>
+
+    <!-- ═══════════════════════════════════════════════
+         MAIN CONTENT (Canvas)
+         ═══════════════════════════════════════════════ -->
+    <main class="flex-1 min-w-0 transition-colors duration-300">
+
+        <!-- 00. HERO SECTION -->
+        <section id="hero" class="min-h-[90vh] flex flex-col justify-center px-8 lg:px-32 py-20 relative overflow-hidden border-b">
+            <!-- Decorative Glow -->
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-accent opacity-[0.05] dark:opacity-[0.1] rounded-full blur-[120px] pointer-events-none"></div>
+
+            <span class="text-accent text-xs font-mono mb-8 block reveal-text font-bold">/// EST. 2025</span>
+            
+            <h1 class="brand-font text-7xl lg:text-9xl font-thin leading-[0.9] mb-12 reveal-text">
+                Twenty<br>
+                <span class="italic text-muted">Two</span><br>
+                Electronic<span class="text-accent">.</span>
+            </h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t pt-12 mt-12 reveal-text">
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-widest mb-4">Philosophy</h3>
+                    <p class="text-sm text-muted leading-relaxed font-light">
+                        Pure Canvas. The complete absence of visual noise. High contrast data visualization.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-widest mb-4">Typography</h3>
+                    <p class="text-sm text-muted leading-relaxed font-light">
+                        <span class="brand-font italic">Editor's Note</span> for elegance.<br>
+                        Inter for precision data.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-widest mb-4">Version</h3>
+                    <p class="font-mono text-xs bg-secondary inline-block px-2 py-1 rounded">v2.4.0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 01. THE GOLDEN RATIO -->
+        <section id="dna" class="px-8 lg:px-32 py-32 border-b">
+            <div class="flex items-baseline justify-between mb-16">
+                <h2 class="brand-font text-5xl lg:text-6xl font-thin">The Golden Ratio</h2>
+                <span class="font-mono text-xs text-muted">DISTRIBUTION RULE</span>
+            </div>
+
+            <!-- Visualization -->
+            <div class="w-full h-24 flex rounded-lg overflow-hidden border mb-8 shadow-sm">
+                <!-- 80% Base -->
+                <div class="h-full bg-base flex-grow-[80] flex items-center justify-center border-r group relative">
+                    <span class="text-2xl font-bold text-muted group-hover:text-primary transition-colors">80%</span>
+                    <span class="absolute bottom-2 text-[10px] text-muted uppercase tracking-widest">Base</span>
+                </div>
+                <!-- 12% Structure -->
+                <div class="h-full bg-secondary flex-grow-[12] flex items-center justify-center border-r group relative">
+                    <span class="text-xl font-bold text-muted group-hover:text-primary transition-colors">12%</span>
+                    <span class="absolute bottom-2 text-[10px] text-muted uppercase tracking-widest">Structure</span>
+                </div>
+                <!-- 8% Accent -->
+                <div class="h-full bg-accent flex-grow-[8] flex items-center justify-center group relative">
+                    <span class="text-xl font-bold text-black/50 group-hover:text-black transition-colors">8%</span>
+                    <span class="absolute bottom-2 text-[10px] text-black/60 uppercase tracking-widest">Accent</span>
+                </div>
+            </div>
+            <p class="text-muted text-sm font-mono text-center">Pure Base · Light Structure · Yellow/Blue Accents</p>
+        </section>
+
+        <!-- 02. COLOR PALETTE -->
+        <section id="colors" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <h2 class="brand-font text-5xl mb-20">Chromatic DNA</h2>
+
+            <!-- Primary Colors -->
+            <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">PRIMARY COLORS</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                
+                <!-- Yellow -->
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#FFD600')">
+                    <div class="h-48 bg-[#FFD600] rounded-t-lg relative flex items-center justify-center">
+                        <span class="text-black font-mono text-xs bg-white/50 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">COPY HEX</span>
+                    </div>
+                    <div class="bg-base p-6 border border-border border-t-0 rounded-b-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Yellow Primary</h4>
+                            <span class="w-3 h-3 rounded-full bg-[#FFD600]"></span>
+                        </div>
+                        <p class="text-[10px] text-muted uppercase tracking-widest mb-4">CTA & Premium</p>
+                        <div class="font-mono text-xs text-muted bg-secondary p-2 rounded flex justify-between">
+                            <span>HEX</span> <span>#FFD600</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blue -->
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#3B82F6')">
+                    <div class="h-48 bg-[#3B82F6] rounded-t-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs bg-black/20 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">COPY HEX</span>
+                    </div>
+                    <div class="bg-base p-6 border border-border border-t-0 rounded-b-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Blue Information</h4>
+                            <span class="w-3 h-3 rounded-full bg-[#3B82F6]"></span>
+                        </div>
+                        <p class="text-[10px] text-muted uppercase tracking-widest mb-4">Links & Data</p>
+                        <div class="font-mono text-xs text-muted bg-secondary p-2 rounded flex justify-between">
+                            <span>HEX</span> <span>#3B82F6</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Black -->
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#050505')">
+                    <div class="h-48 bg-[#050505] rounded-t-lg relative flex items-center justify-center">
+                         <span class="text-white font-mono text-xs bg-white/20 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">COPY HEX</span>
+                    </div>
+                    <div class="bg-base p-6 border border-border border-t-0 rounded-b-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Onyx Text</h4>
+                            <span class="w-3 h-3 rounded-full bg-[#050505]"></span>
+                        </div>
+                        <p class="text-[10px] text-muted uppercase tracking-widest mb-4">Typography</p>
+                        <div class="font-mono text-xs text-muted bg-secondary p-2 rounded flex justify-between">
+                            <span>HEX</span> <span>#050505</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gray -->
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#F5F5F5')">
+                    <div class="h-48 bg-[#F5F5F5] rounded-t-lg relative flex items-center justify-center border-b border-border">
+                         <span class="text-black font-mono text-xs bg-black/10 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">COPY HEX</span>
+                    </div>
+                    <div class="bg-base p-6 border border-border border-t-0 rounded-b-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-bold">Structure Gray</h4>
+                            <span class="w-3 h-3 rounded-full bg-[#F5F5F5] border border-border"></span>
+                        </div>
+                        <p class="text-[10px] text-muted uppercase tracking-widest mb-4">Backgrounds</p>
+                        <div class="font-mono text-xs text-muted bg-secondary p-2 rounded flex justify-between">
+                            <span>HEX</span> <span>#F5F5F5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Semantic Colors -->
+            <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">SEMANTIC COLORS</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#22C55E')">
+                    <div class="h-20 bg-[#22C55E] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#22C55E</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Success</p>
+                </div>
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#EF4444')">
+                    <div class="h-20 bg-[#EF4444] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#EF4444</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Error</p>
+                </div>
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#F59E0B')">
+                    <div class="h-20 bg-[#F59E0B] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#F59E0B</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Warning</p>
+                </div>
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#8B5CF6')">
+                    <div class="h-20 bg-[#8B5CF6] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#8B5CF6</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Purple</p>
+                </div>
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#EC4899')">
+                    <div class="h-20 bg-[#EC4899] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#EC4899</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Pink</p>
+                </div>
+                <div class="group cursor-pointer hover-lift" onclick="copyColor('#06B6D4')">
+                    <div class="h-20 bg-[#06B6D4] rounded-lg relative flex items-center justify-center">
+                        <span class="text-white font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity">#06B6D4</span>
+                    </div>
+                    <p class="text-[10px] text-muted uppercase tracking-widest mt-2 text-center">Cyan</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03. TYPOGRAPHY -->
+        <section id="typography" class="px-8 lg:px-32 py-32 border-b">
+            <h2 class="brand-font text-5xl mb-20">Typography</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Display Font -->
+                <div>
+                    <span class="text-accent font-mono text-xs mb-4 block font-bold">/// DISPLAY FONT</span>
+                    <h3 class="brand-font text-4xl mb-6">Editor's Note</h3>
+                    <p class="text-muted text-sm mb-8 leading-relaxed">
+                        Editorial elegance in pure black ink. Use for headlines and large numbers. 
+                        Weights: Hairline (100) to Bold (800).
+                    </p>
+                    
+                    <div class="space-y-6 border-l border-border pl-8">
+                        <div>
+                            <p class="brand-font text-6xl font-thin">Hairline 100</p>
+                            <p class="brand-font text-6xl font-thin italic text-muted">Italic 100</p>
+                        </div>
+                        <div>
+                            <p class="brand-font text-5xl font-light">Light 300</p>
+                        </div>
+                        <div>
+                            <p class="brand-font text-4xl font-normal">Regular 500</p>
+                        </div>
+                        <div>
+                            <p class="brand-font text-3xl font-bold">Bold 800</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interface Font -->
+                <div>
+                    <span class="text-blue-500 font-mono text-xs mb-4 block font-bold">/// UI FONT</span>
+                    <h3 class="font-sans text-4xl font-bold mb-6">Inter</h3>
+                    <p class="text-muted text-sm mb-8 leading-relaxed">
+                        Technical precision. High legibility on white backgrounds.
+                    </p>
+
+                    <div class="bg-secondary p-8 rounded-lg border border-border space-y-6 font-sans">
+                        <div class="flex justify-between items-center border-b border-border pb-4">
+                            <span class="text-2xl font-semibold">Heading UI</span>
+                            <span class="font-mono text-xs text-muted">600 / 24px</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-border pb-4">
+                            <span class="text-base text-muted">Body text standard reading.</span>
+                            <span class="font-mono text-xs text-muted">400 / 16px</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs uppercase tracking-widest text-muted">Label / Caption</span>
+                            <span class="font-mono text-xs text-muted">500 / 10px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04. COMPONENTS -->
+        <section id="components" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <h2 class="brand-font text-5xl mb-20">Interface Kit</h2>
+
+            <!-- Buttons -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b border-border pb-2">BUTTONS</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Primary Buttons -->
+                    <div class="space-y-4">
+                        <p class="text-xs text-muted uppercase tracking-widest">Primary</p>
+                        <button class="w-full bg-accent text-black px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#ffe033] shadow-lg shadow-yellow-400/20 transition-all duration-300 transform hover:-translate-y-1">
+                            Add to Cart
+                        </button>
+                        <button class="w-full bg-blue-500 text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-600 shadow-lg shadow-blue-400/20 transition-all duration-300 transform hover:-translate-y-1">
+                            Submit
+                        </button>
+                    </div>
+
+                    <!-- Secondary Buttons -->
+                    <div class="space-y-4">
+                        <p class="text-xs text-muted uppercase tracking-widest">Secondary</p>
+                        <button class="w-full bg-transparent border border-border text-primary px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:border-primary hover:bg-primary hover:text-base transition-all duration-300">
+                            View Details
+                        </button>
+                        <button class="w-full bg-transparent border border-blue-500 text-blue-500 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all duration-300">
+                            Learn More
+                        </button>
+                    </div>
+
+                    <!-- Ghost Buttons -->
+                    <div class="space-y-4">
+                        <p class="text-xs text-muted uppercase tracking-widest">Ghost</p>
+                        <button class="w-full text-accent px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-yellow-50 rounded transition-colors flex items-center justify-center gap-2">
+                            Read Specs <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                        <button class="w-full text-blue-500 px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-blue-50 rounded transition-colors flex items-center justify-center gap-2">
+                            Download <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inputs & Forms -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b border-border pb-2">FORMS</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Text Input -->
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-muted mb-2">Search Product</label>
+                        <div class="relative">
+                            <input type="text" placeholder="e.g. iPhone 15 Pro" class="w-full bg-base border border-border rounded-lg p-3 text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors placeholder-muted font-mono text-sm">
+                            <i class="ph ph-magnifying-glass absolute right-3 top-3.5 text-muted"></i>
+                        </div>
+                    </div>
+
+                    <!-- Select -->
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-muted mb-2">Category</label>
+                        <select class="w-full bg-base border border-border rounded-lg p-3 text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors font-mono text-sm">
+                            <option>Electronics</option>
+                            <option>Audio</option>
+                            <option>Wearables</option>
+                            <option>Cameras</option>
+                        </select>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] uppercase tracking-widest text-muted mb-2">Message</label>
+                        <textarea rows="4" placeholder="Enter your message..." class="w-full bg-base border border-border rounded-lg p-3 text-primary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors placeholder-muted font-mono text-sm resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges & Tags -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b border-border pb-2">BADGES & TAGS</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-widest rounded">In Stock</span>
+                    <span class="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-1"><i class="ph-fill ph-fire"></i> Flash Sale</span>
+                    <span class="px-3 py-1 bg-accent/20 border border-accent/40 text-black text-[10px] font-bold uppercase tracking-widest rounded flex items-center gap-1"><i class="ph-fill ph-star text-[#dcb800]"></i> Premium</span>
+                    <span class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px] font-bold uppercase tracking-widest rounded">New</span>
+                    <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/20 text-purple-500 text-[10px] font-bold uppercase tracking-widest rounded">Limited</span>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div>
+                <h3 class="text-sm font-mono text-muted mb-8 border-b border-border pb-2">CARDS</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Basic Card -->
+                    <div class="bg-base rounded-xl border border-border p-6 hover-lift">
+                        <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                            <i class="ph ph-chart-line text-2xl text-accent"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Analytics</h4>
+                        <p class="text-muted text-sm">Track your performance with real-time data visualization.</p>
+                    </div>
+
+                    <!-- Interactive Card -->
+                    <div class="bg-base rounded-xl border border-border p-6 hover-lift cursor-pointer group">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 transition-colors">
+                            <i class="ph ph-users text-2xl text-blue-500 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Team</h4>
+                        <p class="text-muted text-sm">Manage your team members and permissions.</p>
+                        <div class="mt-4 flex items-center text-blue-500 text-xs font-bold uppercase tracking-widest">
+                            Learn More <i class="ph-bold ph-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Featured Card -->
+                    <div class="bg-gradient-to-br from-accent to-yellow-400 rounded-xl p-6 hover-lift">
+                        <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
+                            <i class="ph ph-crown text-2xl text-black"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2 text-black">Premium</h4>
+                        <p class="text-black/70 text-sm">Unlock all features with our premium plan.</p>
+                        <button class="mt-4 bg-black text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                            Upgrade
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05. PRODUCTS -->
+        <section id="products" class="px-8 lg:px-32 py-32">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="text-accent font-mono text-xs tracking-widest block mb-2 font-bold">/// CATALOGUE</span>
+                    <h2 class="brand-font text-5xl">New Arrivals</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button class="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:border-primary transition-colors"><i class="ph ph-arrow-left"></i></button>
+                    <button class="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:border-primary transition-colors"><i class="ph ph-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Product Card 1 -->
+                <div class="group relative bg-base rounded-2xl overflow-hidden border border-border hover:border-primary transition-all duration-300 hover-lift shadow-sm hover:shadow-xl">
+                    <div class="h-64 bg-secondary flex items-center justify-center p-8 relative">
+                         <div class="text-6xl text-muted group-hover:scale-110 group-hover:text-primary transition-all duration-500">🎧</div>
+                         <span class="absolute top-4 left-4 bg-green-500 text-white text-[9px] font-bold px-2 py-1 uppercase rounded-sm shadow-sm">New</span>
+                         <button class="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-accent">
+                            <i class="ph ph-heart"></i>
+                         </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="text-blue-500 text-[10px] uppercase tracking-widest font-bold mb-1 block">Audio</span>
+                                <h3 class="brand-font text-2xl">Sony XM5</h3>
+                            </div>
+                            <span class="font-mono text-muted text-xs mt-1">Ref: S-XM5</span>
+                        </div>
+                        <div class="flex justify-between items-end mt-6">
+                            <span class="text-xl font-bold">$6,800</span>
+                            <button class="bg-primary text-base w-10 h-10 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-colors shadow-lg">
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="group relative bg-base rounded-2xl overflow-hidden border border-accent transition-all duration-300 hover-lift shadow-lg shadow-yellow-100">
+                    <div class="h-64 bg-gradient-to-b from-[#FFFDF0] to-base flex items-center justify-center p-8 relative">
+                         <div class="text-6xl text-accent group-hover:scale-110 transition-transform duration-500">⌚</div>
+                         <span class="absolute top-4 left-4 bg-accent text-black text-[9px] font-bold px-2 py-1 uppercase rounded-sm flex items-center gap-1 shadow-sm"><i class="ph-fill ph-star"></i> Premium</span>
+                         <button class="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-accent">
+                            <i class="ph ph-heart"></i>
+                         </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="text-accent text-[10px] uppercase tracking-widest font-bold mb-1 block">Wearable</span>
+                                <h3 class="brand-font text-2xl">Apple Watch Ultra 2</h3>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end mt-6">
+                            <span class="text-xl font-bold">$19,999</span>
+                            <button class="bg-accent text-black w-full py-3 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-[#ffe033] transition-colors ml-4 shadow-md shadow-yellow-200">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="group relative bg-base rounded-2xl overflow-hidden border border-border hover:border-red-500 transition-all duration-300 hover-lift shadow-sm">
+                    <div class="h-64 bg-red-50 flex items-center justify-center p-8 relative">
+                         <div class="text-6xl text-red-500 group-hover:scale-110 transition-transform duration-500">📷</div>
+                         <span class="absolute top-4 left-4 bg-red-500 text-white text-[9px] font-bold px-2 py-1 uppercase rounded-sm flex items-center gap-1 shadow-sm"><i class="ph-fill ph-lightning"></i> -30%</span>
+                         <button class="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-accent">
+                            <i class="ph ph-heart"></i>
+                         </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <span class="text-muted text-[10px] uppercase tracking-widest font-bold mb-1 block">Camera</span>
+                                <h3 class="brand-font text-2xl">GoPro Hero 11</h3>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-end mt-6">
+                            <div>
+                                <span class="text-xs text-muted line-through block">$10,200</span>
+                                <span class="text-xl font-bold text-red-500">$7,200</span>
+                            </div>
+                            <button class="border border-red-500 text-red-500 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 06. ICONS -->
+        <section id="icons" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <h2 class="brand-font text-5xl mb-20">Iconography</h2>
+            
+            <div class="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6">
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-house')">
+                    <i class="ph ph-house text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">house</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-user')">
+                    <i class="ph ph-user text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">user</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-shopping-cart')">
+                    <i class="ph ph-shopping-cart text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">cart</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-heart')">
+                    <i class="ph ph-heart text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">heart</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-star')">
+                    <i class="ph ph-star text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">star</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-gear')">
+                    <i class="ph ph-gear text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">gear</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-bell')">
+                    <i class="ph ph-bell text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">bell</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-search')">
+                    <i class="ph ph-search text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">search</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-check-circle')">
+                    <i class="ph ph-check-circle text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">check</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-x-circle')">
+                    <i class="ph ph-x-circle text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">close</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-arrow-right')">
+                    <i class="ph ph-arrow-right text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">arrow</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-download-simple')">
+                    <i class="ph ph-download-simple text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">download</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-upload-simple')">
+                    <i class="ph ph-upload-simple text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">upload</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-trash')">
+                    <i class="ph ph-trash text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">trash</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-pencil')">
+                    <i class="ph ph-pencil text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">edit</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-4 bg-base rounded-lg border border-border hover:border-accent transition-colors cursor-pointer group" onclick="copyIcon('ph-eye')">
+                    <i class="ph ph-eye text-3xl text-muted group-hover:text-accent transition-colors"></i>
+                    <span class="text-[10px] text-muted font-mono">view</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07. SPACING -->
+        <section id="spacing" class="px-8 lg:px-32 py-32 border-b">
+            <h2 class="brand-font text-5xl mb-20">Spacing Scale</h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">4px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 4px;"></div>
+                    <span class="text-xs text-muted">space-1</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">8px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 8px;"></div>
+                    <span class="text-xs text-muted">space-2</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">16px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 16px;"></div>
+                    <span class="text-xs text-muted">space-4</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">24px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 24px;"></div>
+                    <span class="text-xs text-muted">space-6</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">32px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 32px;"></div>
+                    <span class="text-xs text-muted">space-8</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">48px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 48px;"></div>
+                    <span class="text-xs text-muted">space-12</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">64px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 64px;"></div>
+                    <span class="text-xs text-muted">space-16</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="w-16 text-xs font-mono text-muted">96px</span>
+                    <div class="h-4 bg-accent rounded" style="width: 96px;"></div>
+                    <span class="text-xs text-muted">space-24</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08. GRID SYSTEM -->
+        <section id="grid" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <div class="flex items-baseline justify-between mb-16">
+                <h2 class="brand-font text-5xl">Grid System</h2>
+                <span class="font-mono text-xs text-muted">12-COLUMN</span>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">RESPONSIVE BREAKPOINTS</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <span class="text-xs font-bold block mb-1">Mobile</span>
+                        <span class="text-[10px] text-muted font-mono">&lt; 640px</span>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <span class="text-xs font-bold block mb-1">Tablet</span>
+                        <span class="text-[10px] text-muted font-mono">640px - 1024px</span>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <span class="text-xs font-bold block mb-1">Laptop</span>
+                        <span class="text-[10px] text-muted font-mono">1024px - 1280px</span>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <span class="text-xs font-bold block mb-1">Desktop</span>
+                        <span class="text-[10px] text-muted font-mono">&gt; 1280px</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">GRID PREVIEW</h3>
+                
+                <!-- Grid Column Numbers -->
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">1</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">2</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">3</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">4</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">5</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">6</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">7</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">8</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">9</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">10</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">11</div>
+                    <div class="col-span-1 h-4 bg-transparent rounded flex items-center justify-center text-[8px] font-mono text-muted">12</div>
+                </div>
+
+                <!-- Grid Demo Rows -->
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-12 h-10 bg-accent/30 rounded flex items-center justify-center text-xs font-mono border border-accent/40">col-span-12 (100%)</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-6 h-10 bg-blue-500/20 rounded flex items-center justify-center text-xs font-mono border border-blue-500/40">col-span-6 (50%)</div>
+                    <div class="col-span-6 h-10 bg-blue-500/20 rounded flex items-center justify-center text-xs font-mono border border-blue-500/40">col-span-6 (50%)</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-4 h-10 bg-purple-500/20 rounded flex items-center justify-center text-xs font-mono border border-purple-500/40">col-span-4 (33%)</div>
+                    <div class="col-span-4 h-10 bg-purple-500/20 rounded flex items-center justify-center text-xs font-mono border border-purple-500/40">col-span-4 (33%)</div>
+                    <div class="col-span-4 h-10 bg-purple-500/20 rounded flex items-center justify-center text-xs font-mono border border-purple-500/40">col-span-4 (33%)</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-3 h-10 bg-green-500/20 rounded flex items-center justify-center text-xs font-mono border border-green-500/40">col-span-3 (25%)</div>
+                    <div class="col-span-3 h-10 bg-green-500/20 rounded flex items-center justify-center text-xs font-mono border border-green-500/40">col-span-3 (25%)</div>
+                    <div class="col-span-3 h-10 bg-green-500/20 rounded flex items-center justify-center text-xs font-mono border border-green-500/40">col-span-3 (25%)</div>
+                    <div class="col-span-3 h-10 bg-green-500/20 rounded flex items-center justify-center text-xs font-mono border border-green-500/40">col-span-3 (25%)</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                    <div class="col-span-2 h-10 bg-red-500/20 rounded flex items-center justify-center text-xs font-mono border border-red-500/40">col-span-2</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                    <div class="col-span-1 h-10 bg-cyan-500/20 rounded flex items-center justify-center text-xs font-mono border border-cyan-500/40">1</div>
+                </div>
+
+                <!-- Gutter Demo -->
+                <div class="mt-8">
+                    <h4 class="text-xs font-mono text-muted mb-4">GUTTER VARIANTS</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-base border border-border p-4 rounded-lg">
+                            <span class="text-[10px] text-muted font-mono block mb-2">gap-2 (8px)</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="h-8 bg-accent/20 rounded"></div>
+                                <div class="h-8 bg-accent/20 rounded"></div>
+                                <div class="h-8 bg-accent/20 rounded"></div>
+                                <div class="h-8 bg-accent/20 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="bg-base border border-border p-4 rounded-lg">
+                            <span class="text-[10px] text-muted font-mono block mb-2">gap-8 (32px)</span>
+                            <div class="grid grid-cols-2 gap-8">
+                                <div class="h-8 bg-blue-500/20 rounded"></div>
+                                <div class="h-8 bg-blue-500/20 rounded"></div>
+                                <div class="h-8 bg-blue-500/20 rounded"></div>
+                                <div class="h-8 bg-blue-500/20 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA VISUALIZATION -->
+        <section id="charts" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <div class="flex items-baseline justify-between mb-16">
+                <h2 class="brand-font text-5xl">Data Visualization</h2>
+                <span class="font-mono text-xs text-muted">CHARTS & GRAPHICS</span>
+            </div>
+
+            <!-- Bar Charts -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">BAR CHARTS</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Simple Bar -->
+                    <div class="bg-base border border-border p-6 rounded-lg">
+                        <h4 class="text-xs font-bold mb-6">SALES BY CATEGORY</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-4">
+                                <span class="w-20 text-xs text-muted font-mono">Audio</span>
+                                <div class="flex-1 h-6 bg-secondary rounded overflow-hidden">
+                                    <div class="h-full bg-accent rounded" style="width: 85%"></div>
+                                </div>
+                                <span class="w-12 text-xs font-mono text-right">85%</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="w-20 text-xs text-muted font-mono">Video</span>
+                                <div class="flex-1 h-6 bg-secondary rounded overflow-hidden">
+                                    <div class="h-full bg-blue-500 rounded" style="width: 65%"></div>
+                                </div>
+                                <span class="w-12 text-xs font-mono text-right">65%</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="w-20 text-xs text-muted font-mono">Wearable</span>
+                                <div class="flex-1 h-6 bg-secondary rounded overflow-hidden">
+                                    <div class="h-full bg-purple-500 rounded" style="width: 45%"></div>
+                                </div>
+                                <span class="w-12 text-xs font-mono text-right">45%</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="w-20 text-xs text-muted font-mono">Other</span>
+                                <div class="flex-1 h-6 bg-secondary rounded overflow-hidden">
+                                    <div class="h-full bg-cyan-500 rounded" style="width: 30%"></div>
+                                </div>
+                                <span class="w-12 text-xs font-mono text-right">30%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stacked Bar -->
+                    <div class="bg-base border border-border p-6 rounded-lg">
+                        <h4 class="text-xs font-bold mb-6">USER GROWTH</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-muted">Q1 2025</span>
+                                    <span class="font-mono">+24%</span>
+                                </div>
+                                <div class="h-3 bg-secondary rounded-full flex overflow-hidden">
+                                    <div class="h-full bg-accent" style="width: 24%"></div>
+                                    <div class="h-full bg-blue-500" style="width: 76%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-muted">Q2 2025</span>
+                                    <span class="font-mono">+38%</span>
+                                </div>
+                                <div class="h-3 bg-secondary rounded-full flex overflow-hidden">
+                                    <div class="h-full bg-accent" style="width: 38%"></div>
+                                    <div class="h-full bg-blue-500" style="width: 62%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-muted">Q3 2025</span>
+                                    <span class="font-mono">+52%</span>
+                                </div>
+                                <div class="h-3 bg-secondary rounded-full flex overflow-hidden">
+                                    <div class="h-full bg-accent" style="width: 52%"></div>
+                                    <div class="h-full bg-blue-500" style="width: 48%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Circular Charts -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">PROGRESS RINGS</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Ring 1 -->
+                    <div class="bg-base border border-border p-6 rounded-lg flex flex-col items-center">
+                        <div class="relative w-24 h-24 mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" class="text-secondary"/>
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="50.24" class="text-accent"/>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-xl font-bold">80%</span>
+                        </div>
+                        <span class="text-xs font-mono text-muted">TARGET</span>
+                    </div>
+                    <!-- Ring 2 -->
+                    <div class="bg-base border border-border p-6 rounded-lg flex flex-col items-center">
+                        <div class="relative w-24 h-24 mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" class="text-secondary"/>
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="100.48" class="text-blue-500"/>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-xl font-bold">60%</span>
+                        </div>
+                        <span class="text-xs font-mono text-muted">REVENUE</span>
+                    </div>
+                    <!-- Ring 3 -->
+                    <div class="bg-base border border-border p-6 rounded-lg flex flex-col items-center">
+                        <div class="relative w-24 h-24 mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" class="text-secondary"/>
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="125.6" class="text-purple-500"/>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-xl font-bold">50%</span>
+                        </div>
+                        <span class="text-xs font-mono text-muted">USERS</span>
+                    </div>
+                    <!-- Ring 4 -->
+                    <div class="bg-base border border-border p-6 rounded-lg flex flex-col items-center">
+                        <div class="relative w-24 h-24 mb-4">
+                            <svg class="w-24 h-24 transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" class="text-secondary"/>
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" fill="none" stroke-dasharray="251.2" stroke-dashoffset="175.84" class="text-green-500"/>
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-xl font-bold">30%</span>
+                        </div>
+                        <span class="text-xs font-mono text-muted">CHURN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">STAT CARDS</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs text-muted uppercase">Revenue</span>
+                            <span class="text-green-500 text-xs font-mono">+12.5%</span>
+                        </div>
+                        <div class="text-2xl font-bold">$2.4M</div>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs text-muted uppercase">Users</span>
+                            <span class="text-blue-500 text-xs font-mono">+8.2%</span>
+                        </div>
+                        <div class="text-2xl font-bold">48.2K</div>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs text-muted uppercase">Orders</span>
+                            <span class="text-purple-500 text-xs font-mono">+5.7%</span>
+                        </div>
+                        <div class="text-2xl font-bold">1,842</div>
+                    </div>
+                    <div class="bg-base border border-border p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs text-muted uppercase">Rating</span>
+                            <span class="text-accent text-xs font-mono">+0.3</span>
+                        </div>
+                        <div class="text-2xl font-bold">4.8</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div>
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">TIMELINE</h3>
+                <div class="bg-base border border-border p-6 rounded-lg">
+                    <div class="relative">
+                        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-border"></div>
+                        <div class="space-y-6">
+                            <div class="relative pl-12">
+                                <div class="absolute left-2.5 w-3 h-3 rounded-full bg-accent border-2 border-base"></div>
+                                <div class="text-xs text-muted font-mono mb-1">Q1 2025</div>
+                                <div class="text-sm font-bold">System Launch</div>
+                                <div class="text-xs text-muted">Initial release of design system v2.0</div>
+                            </div>
+                            <div class="relative pl-12">
+                                <div class="absolute left-2.5 w-3 h-3 rounded-full bg-blue-500 border-2 border-base"></div>
+                                <div class="text-xs text-muted font-mono mb-1">Q2 2025</div>
+                                <div class="text-sm font-bold">Component Library</div>
+                                <div class="text-xs text-muted">Added 50+ new components</div>
+                            </div>
+                            <div class="relative pl-12">
+                                <div class="absolute left-2.5 w-3 h-3 rounded-full bg-purple-500 border-2 border-base"></div>
+                                <div class="text-xs text-muted font-mono mb-1">Q3 2025</div>
+                                <div class="text-sm font-bold">Dark Mode</div>
+                                <div class="text-xs text-muted">Complete dark theme support</div>
+                            </div>
+                            <div class="relative pl-12">
+                                <div class="absolute left-2.5 w-3 h-3 rounded-full bg-green-500 border-2 border-base"></div>
+                                <div class="text-xs text-muted font-mono mb-1">Q4 2025</div>
+                                <div class="text-sm font-bold">Analytics Dashboard</div>
+                                <div class="text-xs text-muted">Data visualization module</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 09. ELEVATION -->
+        <section id="elevation" class="px-8 lg:px-32 py-32 border-b">
+            <h2 class="brand-font text-5xl mb-20">Elevation & Depth</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="h-24 bg-base rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.05)]"></div>
+                    <div>
+                        <span class="text-xs font-bold block">subtle</span>
+                        <span class="text-[10px] text-muted font-mono">0 1px 2px rgba(0,0,0,0.05)</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="h-24 bg-base rounded-lg shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"></div>
+                    <div>
+                        <span class="text-xs font-bold block">card</span>
+                        <span class="text-[10px] text-muted font-mono">0 4px 6px -1px rgba...</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="h-24 bg-base rounded-lg shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]"></div>
+                    <div>
+                        <span class="text-xs font-bold block">elevated</span>
+                        <span class="text-[10px] text-muted font-mono">0 10px 15px -3px rgba...</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="h-24 bg-base rounded-lg shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1)]"></div>
+                    <div>
+                        <span class="text-xs font-bold block">floating</span>
+                        <span class="text-[10px] text-muted font-mono">0 20px 25px -5px rgba...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">SHADOW COLORS</h3>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="h-24 bg-base rounded-lg shadow-lg shadow-yellow-400/20 flex items-center justify-center">
+                        <span class="text-xs font-mono">yellow/20</span>
+                    </div>
+                    <div class="h-24 bg-base rounded-lg shadow-lg shadow-blue-500/20 flex items-center justify-center">
+                        <span class="text-xs font-mono">blue/20</span>
+                    </div>
+                    <div class="h-24 bg-base rounded-lg shadow-lg shadow-purple-500/20 flex items-center justify-center">
+                        <span class="text-xs font-mono">purple/20</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. LOADING STATES -->
+        <section id="loading" class="px-8 lg:px-32 py-32 border-b bg-secondary">
+            <h2 class="brand-font text-5xl mb-20">Loading States</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">SKELETON</h3>
+                    <div class="space-y-4">
+                        <div class="h-4 bg-secondary rounded loading w-full"></div>
+                        <div class="h-4 bg-secondary rounded loading w-3/4"></div>
+                        <div class="h-4 bg-secondary rounded loading w-1/2"></div>
+                        <div class="h-20 bg-secondary rounded-lg loading mt-6"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">SPINNERS</h3>
+                    <div class="flex gap-8 items-center">
+                        <div class="w-8 h-8 border-2 border-border border-t-accent rounded-full animate-spin"></div>
+                        <div class="w-8 h-8 border-2 border-border border-t-blue-500 rounded-full animate-spin"></div>
+                        <div class="w-8 h-8 border-2 border-border border-t-purple-500 rounded-full animate-spin"></div>
+                        <div class="relative">
+                            <div class="w-12 h-12 border-4 border-secondary rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-transparent border-t-accent rounded-full animate-spin"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">PULSE</h3>
+                    <div class="flex gap-4">
+                        <div class="w-4 h-4 bg-accent rounded-full animate-pulse"></div>
+                        <div class="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                        <div class="w-4 h-4 bg-purple-500 rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">PROGRESS BAR</h3>
+                    <div class="space-y-4">
+                        <div class="h-2 bg-secondary rounded-full overflow-hidden">
+                            <div class="h-full bg-accent rounded-full animate-pulse" style="width: 60%"></div>
+                        </div>
+                        <div class="h-2 bg-secondary rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500 rounded-full" style="width: 40%"></div>
+                        </div>
+                        <div class="h-2 bg-secondary rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-accent to-yellow-400 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. ADVANCED COMPONENTS -->
+        <section id="advanced" class="px-8 lg:px-32 py-32 border-b">
+            <h2 class="brand-font text-5xl mb-20">Advanced Components</h2>
+
+            <!-- Dropdowns -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">DROPDOWNS</h3>
+                <div class="flex flex-wrap gap-4">
+                    <div class="relative group">
+                        <button class="px-4 py-2 border border-border rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:border-primary transition-colors">
+                            Menu <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-base border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-secondary transition-colors">Dashboard</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-secondary transition-colors">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-secondary transition-colors">Profile</a>
+                            <hr class="my-1 border-border">
+                            <a href="#" class="block px-4 py-2 text-sm text-red-500 hover:bg-secondary transition-colors">Logout</a>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <button onclick="toggleDropdown('dropdown2')" class="px-4 py-2 bg-accent text-black rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                            Actions <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div id="dropdown2" class="absolute top-full left-0 mt-2 w-48 bg-base border border-border rounded-lg shadow-lg opacity-0 invisible transition-all z-50">
+                            <button class="w-full text-left px-4 py-2 text-sm hover:bg-secondary flex items-center gap-2"><i class="ph ph-pencil"></i> Edit</button>
+                            <button class="w-full text-left px-4 py-2 text-sm hover:bg-secondary flex items-center gap-2"><i class="ph ph-copy"></i> Duplicate</button>
+                            <button class="w-full text-left px-4 py-2 text-sm hover:bg-secondary flex items-center gap-2 text-red-500"><i class="ph ph-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tooltips -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">TOOLTIPS</h3>
+                <div class="flex gap-8 items-center">
+                    <div class="relative group">
+                        <button class="px-4 py-2 border border-border rounded-lg">Hover me</button>
+                        <span class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-base px-3 py-1 rounded text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">Simple tooltip</span>
+                    </div>
+                    <div class="relative group">
+                        <button class="px-4 py-2 bg-accent text-black rounded-lg">With arrow</button>
+                        <span class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-base px-3 py-1 rounded text-xs whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">Click for more info</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Trigger -->
+            <div class="mb-16">
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">MODAL</h3>
+                <button onclick="document.getElementById('demoModal').classList.remove('opacity-0', 'invisible')" class="px-6 py-3 bg-blue-500 text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-blue-600 transition-colors">
+                    Open Modal
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div>
+                <h3 class="text-sm font-mono text-muted mb-8 border-b pb-2">TABS</h3>
+                <div class="border-b border-border">
+                    <div class="flex gap-8">
+                        <button class="pb-4 border-b-2 border-accent text-xs font-bold uppercase tracking-widest">Overview</button>
+                        <button class="pb-4 border-b-2 border-transparent text-muted hover:text-primary text-xs font-bold uppercase tracking-widest transition-colors">Features</button>
+                        <button class="pb-4 border-b-2 border-transparent text-muted hover:text-primary text-xs font-bold uppercase tracking-widest transition-colors">Specs</button>
+                    </div>
+                </div>
+                <div class="mt-8 p-6 bg-secondary rounded-lg">
+                    <p class="text-sm text-muted">Tab content appears here. Use tabs to organize related content.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. THEME CUSTOMIZER -->
+        <section id="theme-customizer" class="px-8 lg:px-32 py-32">
+            <div class="flex items-baseline justify-between mb-16">
+                <div>
+                    <span class="text-accent font-mono text-xs tracking-widest block mb-2 font-bold">/// CUSTOMIZE</span>
+                    <h2 class="brand-font text-5xl">Theme Customizer</h2>
+                </div>
+                <button onclick="resetTheme()" class="px-4 py-2 border border-border rounded-lg text-xs hover:border-accent transition-colors">Reset</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-6 border-b pb-2">PRIMARY COLOR</h3>
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="setColor('--accent', '#FFD600')" class="w-10 h-10 rounded-full bg-[#FFD600] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                        <button onclick="setColor('--accent', '#22C55E')" class="w-10 h-10 rounded-full bg-[#22C55E] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                        <button onclick="setColor('--accent', '#3B82F6')" class="w-10 h-10 rounded-full bg-[#3B82F6] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                        <button onclick="setColor('--accent', '#8B5CF6')" class="w-10 h-10 rounded-full bg-[#8B5CF6] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                        <button onclick="setColor('--accent', '#EC4899')" class="w-10 h-10 rounded-full bg-[#EC4899] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                        <button onclick="setColor('--accent', '#EF4444')" class="w-10 h-10 rounded-full bg-[#EF4444] hover:scale-110 transition-transform ring-2 ring-offset-2 ring-transparent hover:ring-accent"></button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-6 border-b pb-2">BORDER RADIUS</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="radio" name="radius" onclick="setRadius('0')" class="accent-accent">
+                            <span class="w-8 h-8 border border-border rounded-none"></span>
+                            <span class="text-xs">None</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="radio" name="radius" onclick="setRadius('4px')" class="accent-accent" checked>
+                            <span class="w-8 h-8 border border-border rounded"></span>
+                            <span class="text-xs">Small</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="radio" name="radius" onclick="setRadius('12px')" class="accent-accent">
+                            <span class="w-8 h-8 border border-border rounded-lg"></span>
+                            <span class="text-xs">Medium</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="radio" name="radius" onclick="setRadius('9999px')" class="accent-accent">
+                            <span class="w-8 h-8 border border-border rounded-full"></span>
+                            <span class="text-xs">Full</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-mono text-muted mb-6 border-b pb-2">CODE EXPORT</h3>
+                    <div class="bg-secondary rounded-lg p-4 font-mono text-[10px] overflow-x-auto">
+                        <pre id="codeExport">:root {
+  --accent: #FFD600;
+  --radius: 4px;
+}</pre>
+                    </div>
+                    <button onclick="copyCode()" class="mt-4 w-full py-2 border border-border rounded-lg text-xs font-bold uppercase tracking-widest hover:border-accent transition-colors flex items-center justify-center gap-2">
+                        <i class="ph ph-copy"></i> Copy CSS
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Modal -->
+        <div id="demoModal" class="fixed inset-0 bg-black/50 flex items-center justify-center opacity-0 invisible transition-all z-[100]">
+            <div class="bg-base border border-border rounded-2xl p-8 max-w-lg w-full mx-4 transform scale-95 transition-transform" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="brand-font text-2xl">Modal Title</h3>
+                    <button onclick="document.getElementById('demoModal').classList.add('opacity-0', 'invisible')" class="text-muted hover:text-primary transition-colors">
+                        <i class="ph ph-x text-xl"></i>
+                    </button>
+                </div>
+                <p class="text-muted text-sm mb-6">This is a sample modal component. It can contain forms, images, or any other content.</p>
+                <div class="flex gap-3 justify-end">
+                    <button onclick="document.getElementById('demoModal').classList.add('opacity-0', 'invisible')" class="px-4 py-2 border border-border rounded-lg text-xs font-bold uppercase tracking-widest hover:border-primary transition-colors">Cancel</button>
+                    <button onclick="document.getElementById('demoModal').classList.add('opacity-0', 'invisible')" class="px-4 py-2 bg-accent text-black rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-accent-hover transition-colors">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-secondary border-t px-8 lg:px-32 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <span class="brand-font text-2xl">22 Electronic</span>
+                    <p class="text-muted text-[10px] mt-2 uppercase tracking-widest font-mono">
+                        Powered by HTML5 + Tailwind v3.4<br>
+                        Theme: Light/Dark
+                    </p>
+                </div>
+                <div class="flex gap-8 text-xs text-muted uppercase tracking-widest font-mono">
+                    <a href="#" class="hover:text-primary transition-colors">Documentation</a>
+                    <a href="#" class="hover:text-primary transition-colors">Support</a>
+                    <a href="#" class="hover:text-primary transition-colors">Legal</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-primary text-base px-6 py-4 rounded-lg shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 z-[100] flex items-center gap-3">
+        <i class="ph-fill ph-check-circle text-accent text-xl"></i>
+        <div>
+            <span class="block font-bold text-sm uppercase tracking-wide">Copied</span>
+            <span class="block text-[10px] font-mono opacity-80" id="toast-msg">#CODE</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

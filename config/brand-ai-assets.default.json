@@ -1,0 +1,217 @@
+{
+  "defaultProfileId": "default",
+  "profiles": {
+    "default": {
+      "id": "default",
+      "text": {
+        "tone": "Profesional, claro y accionable",
+        "terminology": [
+          "consistencia",
+          "sistema de marca",
+          "lineamiento",
+          "implementacion",
+          "punto de contacto"
+        ],
+        "outputFormat": "Usar Markdown con secciones breves, bullets y criterios verificables.",
+        "fewShotExamples": [
+          {
+            "input": "Redacta una regla de tono para email de onboarding.",
+            "output": "## Tono Email Onboarding\n- Objetivo: activar al usuario en menos de 60 segundos.\n- Voz: cercana, clara y sin tecnicismos.\n- Cierre sugerido: accion unica con CTA medible.",
+            "source": "manual.voice.default"
+          },
+          {
+            "input": "Define una guia corta para titulares web.",
+            "output": "## Headline Guidelines\n- Estructura: beneficio principal + evidencia.\n- Maximo 10 palabras.\n- Evitar adjetivos vacios y promesas no demostrables.",
+            "source": "manual.copy.default"
+          }
+        ],
+        "forbiddenTerms": [
+          "barato",
+          "mejor del mundo",
+          "garantizado al 100%"
+        ]
+      },
+      "image": {
+        "styleDescriptors": [
+          "clean composition",
+          "brand-safe layout",
+          "consistent lighting",
+          "high legibility"
+        ],
+        "paletteHex": [
+          "#0F172A",
+          "#E2E8F0",
+          "#F59E0B"
+        ],
+        "compositionGuidelines": [
+          "prioritize one focal element",
+          "preserve negative space",
+          "avoid visual clutter",
+          "keep high contrast for primary subject"
+        ],
+        "negativePrompts": [
+          "off-brand colors",
+          "low contrast",
+          "watermarks",
+          "logo distortion",
+          "text artifacts",
+          "stock-photo cliches"
+        ]
+      }
+    },
+    "apple": {
+      "id": "apple",
+      "text": {
+        "tone": "Directo, elegante y minimal",
+        "terminology": [
+          "simple",
+          "fluido",
+          "integrado",
+          "preciso",
+          "detalle"
+        ],
+        "outputFormat": "Markdown minimalista, pocas palabras, alto foco en beneficio de producto.",
+        "fewShotExamples": [
+          {
+            "input": "Describe una interfaz de checkout en 2 lineas.",
+            "output": "Checkout en un solo flujo, sin friccion.\nCada paso es claro, rapido y consistente.",
+            "source": "manual.voice.apple"
+          }
+        ],
+        "forbiddenTerms": [
+          "agresivo",
+          "recargado",
+          "barato"
+        ]
+      },
+      "image": {
+        "styleDescriptors": [
+          "minimal premium product shot",
+          "neutral background",
+          "controlled highlights",
+          "balanced geometry"
+        ],
+        "paletteHex": [
+          "#111111",
+          "#F5F5F5",
+          "#9CA3AF"
+        ],
+        "compositionGuidelines": [
+          "single hero object",
+          "centered or golden ratio framing",
+          "subtle shadow depth",
+          "remove decorative noise"
+        ],
+        "negativePrompts": [
+          "busy background",
+          "neon colors",
+          "comic style",
+          "text overlays",
+          "heavy gradients"
+        ]
+      }
+    },
+    "linear": {
+      "id": "linear",
+      "text": {
+        "tone": "Conciso, tecnico y orientado a ejecucion",
+        "terminology": [
+          "workflow",
+          "preciso",
+          "sistema",
+          "latencia",
+          "consistencia"
+        ],
+        "outputFormat": "Formato estructurado orientado a implementacion: objetivo, regla, ejemplo.",
+        "fewShotExamples": [
+          {
+            "input": "Define un mensaje de release note.",
+            "output": "## Release Note\n- Cambio: carga de dashboard optimizada.\n- Impacto: menor latencia percibida.\n- Accion requerida: ninguna.",
+            "source": "manual.voice.linear"
+          }
+        ],
+        "forbiddenTerms": [
+          "vago",
+          "inspiracional vacio",
+          "clickbait"
+        ]
+      },
+      "image": {
+        "styleDescriptors": [
+          "high-contrast ui render",
+          "technical precision",
+          "modular layout",
+          "no decorative overload"
+        ],
+        "paletteHex": [
+          "#0B1220",
+          "#E5E7EB",
+          "#3B82F6"
+        ],
+        "compositionGuidelines": [
+          "grid aligned elements",
+          "strong hierarchy",
+          "clear spacing rhythm",
+          "functional framing"
+        ],
+        "negativePrompts": [
+          "soft blurry edges",
+          "chaotic composition",
+          "low information density",
+          "novelty icons"
+        ]
+      }
+    },
+    "nothing": {
+      "id": "nothing",
+      "text": {
+        "tone": "Directo, retador y de alta senal",
+        "terminology": [
+          "transparencia",
+          "senal",
+          "sistema",
+          "contraste",
+          "experimental"
+        ],
+        "outputFormat": "Bloques cortos con statements de alto impacto y reglas concretas.",
+        "fewShotExamples": [
+          {
+            "input": "Escribe una linea de manifiesto de producto.",
+            "output": "Menos ruido. Mas senal. Diseno que se entiende a primera vista.",
+            "source": "manual.voice.nothing"
+          }
+        ],
+        "forbiddenTerms": [
+          "corporativo generico",
+          "neutro sin personalidad",
+          "ornamental"
+        ]
+      },
+      "image": {
+        "styleDescriptors": [
+          "retro-futuristic minimalism",
+          "signal-based accents",
+          "transparent material hints",
+          "precise industrial geometry"
+        ],
+        "paletteHex": [
+          "#000000",
+          "#F5F5F5",
+          "#FF3B30"
+        ],
+        "compositionGuidelines": [
+          "high contrast focal lock",
+          "one disruptive accent",
+          "clean structural balance",
+          "avoid ornamental background texture"
+        ],
+        "negativePrompts": [
+          "pastel palette",
+          "cute illustration",
+          "luxury serif branding",
+          "vintage paper texture"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+%% Brand Manual Development Roadmap - Version Completa
+%% 55 Modulos | 7 Fases | 3 Gates Criticos
+%% Compatible con mermaid.live
+
+flowchart TD
+    START([Inicio]) --> P1
+    
+    %% FASE 1: Fundamentos de Identidad (8 modulos)
+    P1["FASE 1: Fundamentos de Identidad<br/>El ADN de la marca"]
+    
+    P1 --> M1["M1: Brand Story<br/>Historia y Proposito<br/>• Origen • Mision/Vision<br/>• Brand Promise • Elevator Pitch"]
+    
+    P1 --> M2["M2: Filosofia<br/>Pilares Estrategicos<br/>• Brand Pillars • Positioning<br/>• Brand Essence • Personality"]
+    
+    P1 --> M3["M3: Voz y Tono<br/>Guia de Comunicacion<br/>• Voice Attributes • Do/Don't<br/>• Messaging • Writing Samples"]
+    
+    P1 --> M4["M4: Customer Personas<br/>Perfiles de Audiencia<br/>• Primary/Secondary • Empathy Maps<br/>• JTBD • Anti-Personas"]
+    
+    P1 --> M5["M5: Logo e Isotipo<br/>Sistema de Identidad Visual<br/>• Variaciones • Clear Space<br/>• Sizes • Do/Don't Usage<br/>⚠️ GATE OBLIGATORIO"]
+    
+    P1 --> M6["M6: Paleta de Color<br/>Especificaciones Tecnicas<br/>• Primary/Secondary • HEX/CMYK/Pantone<br/>• Accessibility WCAG<br/>⚠️ GATE OBLIGATORIO"]
+    
+    P1 --> M7["M7: Tipografia<br/>Sistema Tipografico<br/>• Primary/Secondary • Type Scale<br/>• Web Fonts • Hierarchy<br/>⚠️ GATE OBLIGATORIO"]
+    
+    P1 --> M8["M8: Entidades Geometricas<br/>Formas y Patrones<br/>• Core Shapes • Patterns<br/>• Grid System • Motifs"]
+    
+    M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8 --> P2
+    
+    %% FASE 2: Sistema Visual Extendido (6 modulos)
+    P2["FASE 2: Sistema Visual Extendido<br/>Fotografia, ilustracion, movimiento y sonido"]
+    
+    P2 --> M9["M9: Direccion Fotografia<br/>Estilo y Tratamiento<br/>• Lighting • Composition<br/>• Color Grading • Mood"]
+    
+    P2 --> M10["M10: Estilo Ilustracion<br/>Tecnica y Aplicacion<br/>• Style Definition • Character<br/>• Color App • Use Cases"]
+    
+    P2 --> M11["M11: Iconografia<br/>Sistema de Iconos<br/>• Icon Style • Grid System<br/>• Library • Naming"]
+    
+    P2 --> M12["M12: Motion y Animacion<br/>Principios de Movimiento<br/>• Animation • Timing/Easing<br/>• Logo Animation • Micro-IX"]
+    
+    P2 --> M13["M13: Audio Branding<br/>Identidad Sonora<br/>• Audio Logo • Brand Voice<br/>• Sound Palette • Music"]
+    
+    P2 --> M14["M14: Data Visualization<br/>Visualizacion de Datos<br/>• Chart Styles • Color Data<br/>• Typography • Accessibility"]
+    
+    M9 & M10 & M11 & M12 & M13 & M14 --> P3
+    
+    %% FASE 3: UI Kit (9 modulos)
+    P3["FASE 3: UI Kit<br/>Componentes, tokens y patrones"]
+    
+    P3 --> M15["M15: Design Tokens<br/>Variables de Diseno<br/>• Colors • Typography<br/>• Spacing • Shadows<br/>• JSON/CSS Export"]
+    
+    P3 --> M16["M16: Botones<br/>CTAs y Acciones<br/>• Types • States • Sizes<br/>• Variants • CTAs"]
+    
+    P3 --> M17["M17: Formularios<br/>Inputs y Validacion<br/>• Input Types • States<br/>• Labels • Validation<br/>• File Upload"]
+    
+    P3 --> M18["M18: Grids y Layouts<br/>Sistemas de Reticula<br/>• Grid System • Breakpoints<br/>• Spacing Scale • Patterns"]
+    
+    P3 --> M19["M19: Navegacion<br/>Menus y Wayfinding<br/>• Types • Menus • Tabs<br/>• Breadcrumbs • Pagination"]
+    
+    P3 --> M20["M20: Cards y Contenedores<br/>Componentes de UI<br/>• Card Types • Anatomy<br/>• States • Containers<br/>• Modals"]
+    
+    P3 --> M21["M21: Tags Badges Status<br/>Etiquetas y Estados<br/>• Tags • Badges • Status<br/>• Labels • Avatars"]
+    
+    P3 --> M22["M22: Empty States<br/>Estados Vacios y Errores<br/>• No Data • Error Pages<br/>• Loading • Recovery"]
+    
+    P3 --> M23["M23: Tablas y Listas<br/>Datos Tabulares<br/>• Table Types • Sorting<br/>• Pagination • Lists"]
+    
+    M15 & M16 & M17 & M18 & M19 & M20 & M21 & M22 & M23 --> P4
+    
+    %% FASE 4: Presencia Digital (10 modulos)
+    P4["FASE 4: Presencia Digital<br/>Web, redes sociales, email y contenido"]
+    
+    P4 --> M24["M24: Landing Pages<br/>Paginas de Aterrizaje<br/>• Templates • Hero<br/>• CTAs • Forms"]
+    
+    P4 --> M25["M25: Pagina Producto<br/>E-commerce<br/>• Layout • Gallery<br/>• Pricing • Reviews"]
+    
+    P4 --> M26["M26: Carrito Checkout<br/>Flujo de Compra<br/>• Cart • Checkout Flow<br/>• Payment • Confirmation"]
+    
+    P4 --> M27["M27: Social Media Kit<br/>Templates Redes Sociales<br/>• Posts • Stories • Carousels<br/>• Calendar • Hashtags"]
+    
+    P4 --> M28["M28: Perfiles Sociales<br/>Configuracion Perfiles<br/>• Avatars • Covers • Bios<br/>• Platform Guidelines"]
+    
+    P4 --> M29["M29: Email Newsletters<br/>Diseno de Correos<br/>• Templates • Header/Footer<br/>• Mobile • Subject Lines"]
+    
+    P4 --> M30["M30: Tickets Soporte<br/>Atencion al Cliente<br/>• Signatures • Auto-replies<br/>• Templates • Tone"]
+    
+    P4 --> M31["M31: SEO Meta Content<br/>Optimizacion Buscadores<br/>• Title Tags • Meta Desc<br/>• Open Graph • Schema"]
+    
+    P4 --> M32["M32: Presentaciones<br/>Slides y Pitch Decks<br/>• Templates • Master Slide<br/>• Charts • Export"]
+    
+    P4 --> M33["M33: Video Templates<br/>Plantillas de Video<br/>• Templates • Intro/Outro<br/>• Lower Thirds • Export"]
+    
+    M24 & M25 & M26 & M27 & M28 & M29 & M30 & M31 & M32 & M33 --> P5
+    
+    %% FASE 5: Identidad Fisica (10 modulos)
+    P5["FASE 5: Identidad Fisica<br/>Aplicaciones tangibles y espacio"]
+    
+    P5 --> M34["M34: Guia Impresion<br/>Especificaciones Tecnicas<br/>• CMYK/Pantone • Bleed<br/>• Paper • Vendors"]
+    
+    P5 --> M35["M35: Papeleria Corporativa<br/>Tarjetas Membretes<br/>• Business Cards • Letterhead<br/>• Envelopes • Folders"]
+    
+    P5 --> M36["M36: Etiquetado Productos<br/>Labels y Packaging<br/>• Label Types • Legal<br/>• Barcodes • Materials"]
+    
+    P5 --> M37["M37: QR Codes Branded<br/>Codigos QR Personalizados<br/>• Style • Logo Integration<br/>• Testing • Use Cases"]
+    
+    P5 --> M38["M38: Packaging Bolsas<br/>Empaques y Envios<br/>• Boxes • Bags • Shipping<br/>• Unboxing • Sustainable"]
+    
+    P5 --> M39["M39: Uniformes<br/>Vestimenta Corporativa<br/>• Types • Logo Placement<br/>• Colors • Vendors"]
+    
+    P5 --> M40["M40: Merchandising<br/>Articulos Promocionales<br/>• Stationery • Tech<br/>• Drinkware • Events"]
+    
+    P5 --> M41["M41: Senalizacion<br/>Wayfinding y Senales<br/>• Types • Sizes • Mounting<br/>• Accessibility"]
+    
+    P5 --> M42["M42: Diseno Arquitectonico<br/>Espacios de Marca<br/>• Interior • Exterior<br/>• Graphics • Experience"]
+    
+    P5 --> M43["M43: Vehiculos Flotilla<br/>Rotulacion Vehiculos<br/>• Wrap • Placement • Legal<br/>• Care • Vendors"]
+    
+    M34 & M35 & M36 & M37 & M38 & M39 & M40 & M41 & M42 & M43 --> P6
+    
+    %% FASE 6: Experiencia del Cliente (6 modulos)
+    P6["FASE 6: Experiencia del Cliente<br/>Protocolos y cultura de marca"]
+    
+    P6 --> M44["M44: Manual Comportamiento<br/>Codigo de Conducta<br/>• Values • Interaction<br/>• Dress Code • Social Media"]
+    
+    P6 --> M45["M45: Manejo Problemas<br/>Crisis Management<br/>• Escalation • Crisis Comms<br/>• Recovery • Training"]
+    
+    P6 --> M46["M46: Sistema CX<br/>Medicion Experiencia<br/>• NPS • CSAT • CES<br/>• Journey Maps • Feedback"]
+    
+    P6 --> M47["M47: Onboarding<br/>Induccion Empleados<br/>• Welcome Kit • Training<br/>• Mentorship • First 90 Days"]
+    
+    P6 --> M48["M48: Co-branding<br/>Alianzas y Partners<br/>• Criteria • Rules • Approval<br/>• Agreements • Tracking"]
+    
+    P6 --> M49["M49: Benchmark<br/>Analisis Competencia<br/>• Competitors • Best Class<br/>• Trends • Gap Analysis"]
+    
+    M44 & M45 & M46 & M47 & M48 & M49 --> P7
+    
+    %% FASE 7: Integraciones y Distribucion (6 modulos)
+    P7["FASE 7: Integraciones y Distribucion<br/>Conectores, exports y automatizacion"]
+    
+    P7 --> M50["M50: Conector Notion<br/>Integracion Notion<br/>• Database • Templates<br/>• Sync • Automation"]
+    
+    P7 --> M51["M51: Export MD LLMs<br/>Formato para IA<br/>• Structure • Prompts<br/>• Context • Token Opt"]
+    
+    P7 --> M52["M52: Asset Library<br/>Repositorio Assets<br/>• Organization • Naming<br/>• Portal • CDN"]
+    
+    P7 --> M53["M53: Versionado<br/>Release Notes<br/>• Versioning • Changelog<br/>• Migration • Rollback"]
+    
+    P7 --> M54["M54: Brand Audit<br/>Checklist Auditoria<br/>• Categories • Scoring<br/>• Remediation • Reports"]
+    
+    P7 --> M55["M55: Roadmap<br/>Planificacion<br/>• Milestones • Timeline<br/>• Resources • Risk"]
+    
+    M50 & M51 & M52 & M53 & M54 & M55 --> END([55 Modulos Completados])
+    
+    %% Estilos
+    classDef phase1 fill:#FFF9E6,stroke:#F5C518,stroke-width:3px
+    classDef phase2 fill:#FDF2F8,stroke:#EC4899,stroke-width:3px
+    classDef phase3 fill:#EFF6FF,stroke:#3B82F6,stroke-width:3px
+    classDef phase4 fill:#ECFDF5,stroke:#10B981,stroke-width:3px
+    classDef phase5 fill:#FFF7ED,stroke:#F97316,stroke-width:3px
+    classDef phase6 fill:#FEF2F2,stroke:#EF4444,stroke-width:3px
+    classDef phase7 fill:#F5F3FF,stroke:#8B5CF6,stroke-width:3px
+    classDef gate fill:#FEE2E2,stroke:#DC2626,stroke-width:4px,stroke-dasharray: 5 5
+    classDef endNode fill:#D1FAE5,stroke:#059669,stroke-width:3px
+    
+    class P1 phase1
+    class P2 phase2
+    class P3 phase3
+    class P4 phase4
+    class P5 phase5
+    class P6 phase6
+    class P7 phase7
+    class M5,M6,M7 gate
+    class END endNode
